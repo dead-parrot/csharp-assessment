@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="OxyPlot.Core" Version="2.1.2" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
+    <PackageReference Include="Parquet.Net" Version="4.24.0" />
   </ItemGroup>
 
 </Project>

@@ -34,7 +34,6 @@
             btnExportExcel = new Button();
             dgImportedEra5 = new DataGridView();
             plotView1 = new OxyPlot.WindowsForms.PlotView();
-            cmbFilterData = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgImportedEra5).BeginInit();
             SuspendLayout();
             // 
@@ -88,28 +87,18 @@
             plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
             plotView1.ZoomVerticalCursor = Cursors.SizeNS;
             // 
-            // cmbFilterData
-            // 
-            cmbFilterData.FormattingEnabled = true;
-            cmbFilterData.Items.AddRange(new object[] { "Day", "Month" });
-            cmbFilterData.Location = new Point(12, 50);
-            cmbFilterData.Name = "cmbFilterData";
-            cmbFilterData.Size = new Size(121, 23);
-            cmbFilterData.TabIndex = 5;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1175, 584);
-            Controls.Add(cmbFilterData);
             Controls.Add(plotView1);
             Controls.Add(dgImportedEra5);
             Controls.Add(btnExportExcel);
             Controls.Add(btnExportCsv);
             Controls.Add(btnImportEra5);
             Name = "frmMain";
-            Text = "Form1";
+            Text = "WindSpeed Reader";
             ((System.ComponentModel.ISupportInitialize)dgImportedEra5).EndInit();
             ResumeLayout(false);
         }
@@ -121,6 +110,5 @@
         private Button btnExportExcel;
         private DataGridView dgImportedEra5;
         private OxyPlot.WindowsForms.PlotView plotView1;
-        private ComboBox cmbFilterData;
     }
 }
