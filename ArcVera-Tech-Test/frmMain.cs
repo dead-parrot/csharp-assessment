@@ -1,9 +1,9 @@
 namespace ArcVera_Tech_Test
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         private Report reportCls;
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
             if(reportCls == null)

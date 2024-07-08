@@ -1,6 +1,6 @@
 ﻿namespace ArcVera_Tech_Test
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,6 +34,7 @@
             btnExportExcel = new Button();
             dgImportedEra5 = new DataGridView();
             plotView1 = new OxyPlot.WindowsForms.PlotView();
+            cmbFilterData = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgImportedEra5).BeginInit();
             SuspendLayout();
             // 
@@ -70,34 +71,44 @@
             // dgImportedEra5
             // 
             dgImportedEra5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgImportedEra5.Location = new Point(12, 41);
+            dgImportedEra5.Location = new Point(12, 79);
             dgImportedEra5.Name = "dgImportedEra5";
-            dgImportedEra5.Size = new Size(576, 502);
+            dgImportedEra5.Size = new Size(576, 464);
             dgImportedEra5.TabIndex = 3;
             // 
             // plotView1
             // 
-            plotView1.Location = new Point(605, 41);
+            plotView1.Location = new Point(605, 79);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
-            plotView1.Size = new Size(558, 502);
+            plotView1.Size = new Size(558, 464);
             plotView1.TabIndex = 4;
             plotView1.Text = "pltAvgWd";
             plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
             plotView1.ZoomRectangleCursor = Cursors.SizeNWSE;
             plotView1.ZoomVerticalCursor = Cursors.SizeNS;
             // 
-            // Form1
+            // cmbFilterData
+            // 
+            cmbFilterData.FormattingEnabled = true;
+            cmbFilterData.Items.AddRange(new object[] { "Day", "Month" });
+            cmbFilterData.Location = new Point(12, 50);
+            cmbFilterData.Name = "cmbFilterData";
+            cmbFilterData.Size = new Size(121, 23);
+            cmbFilterData.TabIndex = 5;
+            // 
+            // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1175, 584);
+            Controls.Add(cmbFilterData);
             Controls.Add(plotView1);
             Controls.Add(dgImportedEra5);
             Controls.Add(btnExportExcel);
             Controls.Add(btnExportCsv);
             Controls.Add(btnImportEra5);
-            Name = "Form1";
+            Name = "frmMain";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dgImportedEra5).EndInit();
             ResumeLayout(false);
@@ -110,5 +121,6 @@
         private Button btnExportExcel;
         private DataGridView dgImportedEra5;
         private OxyPlot.WindowsForms.PlotView plotView1;
+        private ComboBox cmbFilterData;
     }
 }
