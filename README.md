@@ -5,7 +5,7 @@ Here you can find more information about [ERA5](https://cds.climate.copernicus.e
 
 #### For this assessment you are asked to:
 * Download the file: https://drive.google.com/file/d/1Znmy5mu_R1SnJIPKFln89jgBYt1yJCaM/view?usp=drive_link
-* Complete the method to export as a csv the imported parquet data in a bulk of 50 rows
+* Complete the method to export as a csv the imported parquet data
 * Complete the method to export as a excel the imported excel data
 * Color as red the rows with negative values in the `u10` column
 
