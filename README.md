@@ -7,7 +7,7 @@ Here you can find more information about [ERA5](https://cds.climate.copernicus.e
 * Download the file: https://drive.google.com/file/d/1Znmy5mu_R1SnJIPKFln89jgBYt1yJCaM/view?usp=drive_link
 * Complete the method to export as a csv the imported parquet data
 * Complete the method to export as a excel the imported excel data
-* Color as red the rows with negative values in the `u10` column
+* Color as red the rows with negative values in the `u10` column in the excel report
 
 #### Bonus
 * Add a filter to group the imported data and display as weekly, so allowing to switch between `Daily` and `Weekly`
