@@ -6,6 +6,7 @@ using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using DataColumn = System.Data.DataColumn;
 using OxyPlot.Axes;
+using System.Text;
 
 namespace ArcVera_Tech_Test
 {
@@ -99,7 +100,39 @@ namespace ArcVera_Tech_Test
 
         private void btnExportCsv_Click(object sender, EventArgs e)
         {
-            // Complete here
+            DataTable dataTable = (DataTable)dgImportedEra5.DataSource;
+            if (dataTable == null)
+            {
+                MessageBox.Show("No data to export", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                saveFileDialog.Title = "Save as CSV";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    ExportDataTableToCsv(dataTable, filePath);
+                }
+            }
+        }
+
+        private void ExportDataTableToCsv(DataTable dataTable, string filePath)
+        {
+            var start = DateTime.Now;
+            var columnNames = dataTable.Columns.Cast<DataColumn>().Select(column => column.ColumnName).ToArray();
+            var csv = new StringBuilder();
+            csv.AppendLine(string.Join(",", columnNames));
+            foreach (DataRow row in dataTable.Rows)
+            {
+                csv.AppendLine(string.Join(",", row.ItemArray));
+            }
+            File.WriteAllText(filePath, csv.ToString());
+            var end = DateTime.Now;
+            MessageBox.Show($"Exported {dataTable.Rows.Count} rows to CSV in {(end - start).TotalSeconds} seconds", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)
