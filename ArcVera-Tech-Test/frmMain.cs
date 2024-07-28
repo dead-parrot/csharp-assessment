@@ -7,6 +7,7 @@ using OxyPlot.WindowsForms;
 using DataColumn = System.Data.DataColumn;
 using OxyPlot.Axes;
 using System.Text;
+using OfficeOpenXml;
 
 namespace ArcVera_Tech_Test
 {
@@ -137,7 +138,63 @@ namespace ArcVera_Tech_Test
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Complete here
+            DataTable dataTable = (DataTable)dgImportedEra5.DataSource;
+            if (dataTable == null)
+            {
+                MessageBox.Show("No data to export", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "XLSX files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                saveFileDialog.Title = "Save as XLSX";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    ExportDataTableToExcel(dataTable, filePath);
+                }
+            }
+        }
+
+        private void ExportDataTableToExcel(DataTable dataTable, string filePath)
+        {
+            var start = DateTime.Now;
+            int rowsPerPage = 1000000;
+            int rowsNotImportedYet = dataTable.Rows.Count;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using ExcelPackage package = new ExcelPackage();
+            for (int iteration = 0; rowsNotImportedYet > 0; iteration++)
+            {
+                using DataTable dt = new DataTable();
+                for (int i = 0; i < dataTable.Columns.Count; i++)
+                {
+                    dt.Columns.Add(dataTable.Columns[i].ColumnName, dataTable.Columns[i].DataType);
+                }
+
+                int rowsAlreadyImported = dataTable.Rows.Count - rowsNotImportedYet;
+                int rowsToImport = Math.Min(rowsPerPage, rowsNotImportedYet);
+                for (int i = rowsAlreadyImported; i < rowsAlreadyImported + rowsToImport; i++)
+                {
+                    dt.ImportRow(dataTable.Rows[i]);
+                }
+                rowsNotImportedYet -= rowsToImport;
+
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add($"Sheet{iteration}");
+                var filledRange = worksheet.Cells["A1"].LoadFromDataTable(dt, true);
+                int rowCount = dt.Rows.Count;
+                var cf = worksheet.ConditionalFormatting.AddExpression(worksheet.Cells[$"A1:E{rowCount+1}"]);
+                cf.Formula = "IF($E1<0,1,0)";
+                cf.Style.Fill.BackgroundColor.SetColor(Color.Red);
+                cf.Style.Font.Color.SetColor(Color.White);
+
+                dt.Clear();
+            }
+            package.SaveAs(new FileInfo(filePath));
+
+            var end = DateTime.Now;
+            MessageBox.Show($"Exported {dataTable.Rows.Count} rows to Excel in {(end - start).TotalSeconds} seconds", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
